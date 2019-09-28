@@ -1,25 +1,37 @@
 package com.example.springboot.springbootdemo.controller;
 
+import com.example.springboot.springbootdemo.dto.UserDto.User;
 import com.example.springboot.springbootdemo.service.UserService;
-import com.example.springboot.springbootdemo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 
 @Controller
 public class registeController {
 
-    private UserServiceImpl userService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/registe")
    public String registe(){
         return "registe";
     }
-    @GetMapping("/registePost")
-    public String registePost(@RequestParam(value = "用户名")String name,@RequestParam(value = "密码")String password,@RequestParam(value = "邮箱")String email,@RequestParam("手机")String phonenumber){
-        userService.registeSucess();
-        return "redirect:index";
+
+    @RequestMapping(value="registePost",method=RequestMethod.POST)
+    public boolean registePost(@RequestParam("exampleInputUsername1")String name, @RequestParam("exampleInputPassword1")String password, @RequestParam("exampleInputEmail1")String email, @RequestParam("exampleInputPhone1")String phone, HttpServletRequest request) {
+            User user = new User();
+            user.setLastIp(request.getLocalAddr());
+            user.setLastVisit(new Date());
+            user.setUserEmail(email);
+            user.setUserName(name);
+            user.setUserPassword(password);
+            user.setUserPhonenumber(phone);
+            userService.registeUser(user);
+            System.out.println(user.toString());
+        return true;
     }
 }

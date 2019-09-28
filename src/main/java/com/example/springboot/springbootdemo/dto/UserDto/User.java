@@ -1,12 +1,13 @@
 package com.example.springboot.springbootdemo.dto.UserDto;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Component
-public class User implements Serializable {
+public class User{
     private String userId;
     private String userName;
     private String userPassword;
