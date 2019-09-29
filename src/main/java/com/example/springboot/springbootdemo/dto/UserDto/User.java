@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Component
-public class User{
+@Alias("user")
+public class User implements Serializable{
     private String userId;
     private String userName;
     private String userPassword;
