@@ -25,4 +25,11 @@
         insert into t_user(user_name,credits,password,last_visit,last_ip,email,phonenumber) values (#{userName},#{credits},#{userPassword},#{lastVisit},#{lastIp},#{userEmail},#{userPhonenumber})
     </insert>
 
+    <select id="findUserByUsername" parameterType="user" resultType= "user">
+        select * from t_user where user_name like '${userName}'
+    </select>
+
+    <update id="updateUserLoginInf">
+        update t_user set credits = #{credits},last_visit = #{lastvisit} where user_name = #{userName}
+    </update>
 </mapper>

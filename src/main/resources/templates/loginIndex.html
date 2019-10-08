@@ -12,14 +12,14 @@
 </head>
 <body>
 <!-- 登录表单 -->
-<form style="margin-left:500px;margin-top:200px;">
+<form style="margin-left:500px;margin-top:200px;" action="/loginIndex"  method="post">
     <div class="form-group">
         <label for="user" stype="display:inline;">账户：</label>
-        <input type="text" class="form-control" id="user" style="display:inline;width:200px;"autocomplete="off" />
+        <input type="text" class="form-control" id="user" name="userName" style="display:inline;width:200px;"autocomplete="off" />
     </div>
     <div class="form-group">
         <label for="password" style="display:inline;">密码：</label>
-        <input type="password" class="form-control" id="password" style="display:inline;width:200px;"autocomplete="off" />
+        <input type="password" class="form-control" id="password" name="userPassword" style="display:inline;width:200px;"autocomplete="off" />
     </div>
     <button type="submit" class="btn btn-primary">登录</button>
     <a href="/registe" class="btn btn-primary" onclick="doSubmit();">注册</a>

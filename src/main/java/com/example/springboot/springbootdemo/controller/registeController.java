@@ -21,6 +21,7 @@ public class registeController {
 
     @RequestMapping(value="/registePost",method=RequestMethod.POST)
     public String registePost(User user) {
+
             userService.registeUser(user);
             System.out.println(user);
         return "index";

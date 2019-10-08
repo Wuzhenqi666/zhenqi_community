@@ -9,7 +9,7 @@ import java.util.Date;
 @Component
 @Alias("user")
 public class User implements Serializable{
-    private String userId;
+    private long userId;
     private String userName;
     private String userPassword;
     private  String lastIp;
@@ -18,11 +18,11 @@ public class User implements Serializable{
     private String userEmail;
     private String userPhonenumber;
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
