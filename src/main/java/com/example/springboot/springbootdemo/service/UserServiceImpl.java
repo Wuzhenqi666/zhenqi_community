@@ -3,6 +3,8 @@ package com.example.springboot.springbootdemo.service;
 import com.example.springboot.springbootdemo.dto.UserDto.User;
 import com.example.springboot.springbootdemo.mapper.UserMapper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,11 @@ import java.util.Date;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private User user;
 
     @Autowired
     private UserMapper userMapper;
@@ -33,25 +40,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean loginSuccess(User user) {
+    public User loginSuccess(User user) {
         try {
             user.setLastVisit(new Date());
             user.setCredits(user.getCredits()+ 10);
             userMapper.updateUserLoginInf(user);
         }catch (Exception e){
             System.out.println(e);
-            return false;
+            return null;
         }
-        return true;
+        return user;
     }
 
     @Override
-    public boolean loginService(User user) {
-        if (userMapper.findUserByUsername(user.getUserName()).size()<=0){
-            return false;
+    public User loginService(User user) {
+
+        if (userMapper.findUserByUsername(user.getUserName()).size()>0){
+            this.user = userMapper.findUserByUsername(user.getUserName()).get(0);
+            if(this.user.getUserPassword().equals(user.getUserPassword())){
+                logger.info("登陆成功"+this.user);
+                return this.user;
+            }else {
+                return null;
+            }
         }else{
-            System.out.println(userMapper.findUserByUsername(user.getUserName()));
-            return true;
+            return null;
         }
     }
 }

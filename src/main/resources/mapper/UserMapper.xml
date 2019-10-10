@@ -7,7 +7,7 @@
 <mapper namespace="com.example.springboot.springbootdemo.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="user">
-        <result property="id" column="user_id"/>
+        <result property="id" column="id"/>
         <result property="userName" column="user_name"/>
         <result property="credits" column="credits"/>
         <result property="userPassword" column="password"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <select id="selectAllUserId" resultType="java.lang.Integer">
-        select user_id from t_user
+        select id from t_user
     </select>
 
     <insert id="insertIntoUser" parameterType="user">
@@ -26,10 +26,10 @@
     </insert>
 
     <select id="findUserByUsername" parameterType="user" resultType= "user">
-        select * from t_user where user_name like '${userName}'
+        select id,user_name as userName,credits,password as userPassword,last_visit as lastVisit,last_ip as lastIp,email as userEmail,phonenumber as userPhonenumber from t_user where user_name like '${userName}'
     </select>
 
-    <update id="updateUserLoginInf">
-        update t_user set credits = #{credits},last_visit = #{lastvisit} where user_name = #{userName}
+    <update id="updateUserLoginInf" parameterType="user">
+        update t_user set credits = #{credits},last_visit = #{lastVisit} where user_name like '${userName}'
     </update>
 </mapper>

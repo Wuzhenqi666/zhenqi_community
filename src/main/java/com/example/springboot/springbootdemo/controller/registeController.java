@@ -23,7 +23,7 @@ public class registeController {
     public String registePost(User user) {
 
             userService.registeUser(user);
-            System.out.println(user);
+            System.out.println("注册"+user);
         return "index";
     }
 }
